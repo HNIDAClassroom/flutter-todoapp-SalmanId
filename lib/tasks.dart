@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:todolist_app/new_task.dart';
 import 'package:todolist_app/tasks_list.dart';
 import 'package:todolist_app/models/task.dart';
+import 'package:todolist_app/services/firestore.dart';
 
 class Tasks extends StatefulWidget {
   const Tasks({super.key});
-
+  
   @override
   State<Tasks> createState() => _TasksState();
 }
 
 class _TasksState extends State<Tasks> {
-
+  final FirestoreService firestoreService= FirestoreService();
   List<Task> _registeredTasks = [
   Task(
     title: 'Apprendre Flutter',
@@ -38,22 +39,48 @@ class _TasksState extends State<Tasks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar( 
-        title: const Text('Salman s Tasks'),
-        actions: [
-          IconButton(icon: Icon(Icons.add), onPressed: _openAddTaskOverlay ) 
-        ]
+        title: const Text('Tasks',
+         style: TextStyle(
+                  color: Colors.white, 
+                  fontWeight:FontWeight.bold,
+                  fontSize:30,
+                  
+                ),
+        ),
+        centerTitle: true,
+       
+        backgroundColor: Colors.black,
       ),
-      body: TasksList(tasks: _registeredTasks),
+      body: TasksList(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _openAddTaskOverlay,
+        backgroundColor: Colors.black, // Background color of the round button
+        child: Icon(Icons.add, color: Colors.white), // Icon color of the round button
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, // Position du bouton flottant
     );
   }
   void _openAddTaskOverlay() {
     showModalBottomSheet(
       context: context,
-      builder: (ctx) => const NewTask(),
+      builder: (ctx) => NewTask(onAddTask: _addTask),
     );
   }
+  /*void _addTask(Task task) {
+    setState(() {
+    _registeredTasks.add(task);
+  });*/
+  void _addTask(Task task) {
+    setState(() {
+      //_registeredTasks.add(task);
+      firestoreService.addTask(task);
+      Navigator.pop(context);
+    });
+
+
+
+}
 
  
 

@@ -19,7 +19,7 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
-
+  <meta name="google-signin-client_id" content="258405282975-58oqnfh69oohdditceuqquh7k4sa7che.apps.googleusercontent.com">
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -38,6 +38,14 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+  gapi.load('auth2', function() {
+    gapi.auth2.init({
+      client_id: '258405282975-58oqnfh69oohdditceuqquh7k4sa7che.apps.googleusercontent.com'
+    });
+  });
+</script>
 </head>
 <body>
   <script>

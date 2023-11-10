@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:todolist_app/tasks.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'firebase_options.dart';
+import 'Tp2_login/login1.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(elevation: 0), 
-        useMaterial3: true  
-      ),
-      home: const Tasks(),
-    ),
-  );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
 }
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Login1Page(),
+    );
+  }
+}
+
+
